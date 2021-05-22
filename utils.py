@@ -1,4 +1,5 @@
 import copy
+
 import cv2
 
 
@@ -9,7 +10,6 @@ def zero_pad(img, pwx, pwy):
         padded_img.insert(0, [0 for value in enumerate(padded_img[i])])
         padded_img.insert(len(padded_img), [0 for value in enumerate(padded_img[-1])])
     for i, row in enumerate(padded_img):
-        #row = list(row)
         for j in range(pwy):
             row.insert(0, 0)
             row.insert(len(row), 0)
@@ -89,14 +89,5 @@ def flip2d(img, axis=None):
         flipped_img: nested list (int), the flipped image.
     """
     # TODO: implement this function.
-    #raise NotImplementedError
-    if axis == 0 :
-        flipped_img = flip_x(img)
-    elif axis == 1:
-        flipped_img = flip_y(img)
-    else:
-        flipped_img = flip_x(img)
-        flipped_img = flip_y(flipped_img)
+    raise NotImplementedError
     return flipped_img
-
-

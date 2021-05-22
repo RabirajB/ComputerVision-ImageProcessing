@@ -17,13 +17,12 @@ Do NOT import any library (function, module, etc.).
 """
 
 import argparse
-import math
 import copy
 import os
-import pprint
+
 import cv2
 import numpy as np
-from functools import reduce
+
 import utils
 
 # Prewitt operator
@@ -105,59 +104,15 @@ def convolve2d(img, kernel):
         img_conv: nested list (int), image.
     """
     # TODO: implement this function.
-    #raise NotImplementedError
-    kernel = utils.flip2d(kernel, axis = None)
-    img = utils.zero_pad(img, 1, 1)
-    n = len(img)
-    l = len(kernel)
-    img_conv = []
-    for i in range(n):
-        if i + l > n:
-            break
-        mat = img[i:i + l]
-        global_mat = []
-        for j in range(n):
-            if j + l > n:
-                break
-            mat2 = []
-            for x, row in enumerate(mat):
-                mat2.append(row[j:j + l])
-            # print("Matrix Before Multiplication", mat2)
-            mat3 = utils.elementwise_mul(mat2, kernel)
-            total = 0
-
-            for x, row in enumerate(mat3):
-                total += reduce(lambda z, y: z + y, row)
-            global_mat.append(total)
-        img_conv.append(global_mat)
+    raise NotImplementedError
     return img_conv
-
-def get_max(img):
-    max = -(math.inf)
-    for i in range(len(img)):
-        for j in range(len(img[i])):
-            if img[i][j] > max:
-                max = img[i][j]
-            else:
-                pass
-    return max
-
-def get_min(img):
-    min = math.inf
-    for i in range(len(img)):
-        for j in range(len(img[i])):
-            if img[i][j] < min:
-                min = img[i][j]
-            else:
-                pass
-    return min
 
 
 def normalize(img):
     """Normalizes a given image.
 
     Hints:
-        Normalize a given image using the following equation:
+        Noralize a given image using the following equation:
 
         normalized_img = frac{img - min(img)}{max(img) - min(img)},
 
@@ -170,19 +125,11 @@ def normalize(img):
         normalized_img: nested list (int), normalized image.
     """
     # TODO: implement this function.
-    #img_c = copy.deepcopy(img)
-    img = [list(row) for row in img]
-    max_val = get_max(img)
-    min_val = get_min(img)
-    for i in range(len(img)):
-        for j in range(len(img)):
-            img[i][j] = (img[i][j] - min_val) / (max_val - min_val)
-    #raise NotImplementedError
-    img = np.asarray(img)
+    raise NotImplementedError
     return img
 
 
-def detect_edges(img, kernel, norm = True):
+def detect_edges(img, kernel, norm=True):
     """Detects edges using a given kernel.
 
     Args:
@@ -194,12 +141,7 @@ def detect_edges(img, kernel, norm = True):
         img_edge: nested list (int), image containing detected edges.
     """
     # TODO: detect edges using convolve2d and normalize the image containing detected edges using normalize.
-    img_edges = convolve2d(img, kernel)
-    if norm == True:
-        print("Entered if block")
-        img_edges = normalize(img_edges)
-
-    #raise NotImplementedError
+    raise NotImplementedError
     return img_edges
 
 
@@ -221,25 +163,9 @@ def edge_magnitude(edge_x, edge_y):
         edge_mag: nested list (int), image containing magnitude of detected edges.
     """
     # TODO: implement this function.
-    edge_x = [list(rowx) for rowx in edge_x]
-    edge_y = [list(rowy) for rowy in edge_y]
-    for i in range(len(edge_x)):
-        for j in range(len(edge_x[i])):
-            edge_x[i][j] = edge_x[i][j]**2
-
-
-    for i in range(len(edge_y)):
-        for j in range(len(edge_y[i])):
-            edge_y[i][j] = edge_y[i][j]**2
-
-    edge_mag = utils.elementwise_add(edge_x, edge_y)
-
-    for i in range(len(edge_mag)):
-        for j in range(len(edge_mag[i])):
-            edge_mag[i][j] = math.sqrt(edge_mag[i][j])
-
-    edge_mag = normalize(edge_mag)
+    raise NotImplementedError
     return edge_mag
+
 
 def main():
     args = parse_args()
@@ -272,4 +198,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
